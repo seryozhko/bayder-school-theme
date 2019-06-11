@@ -68,32 +68,19 @@
 						<button class="btn btn-grey px-1" type="submit"><i class="material-icons align-top">search</i></button>
 					</div>
 				</form>
-
-				<div class="collapse navbar-collapse flex-nowrap" id="navbarCollapse">
-					<ul class="navbar-nav text-center">
-						<li class="nav-item active">
-							<a class="nav-link" href="#">ГЛАВНАЯ<span class="sr-only">(current)</span></a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">ЗАЛЫ И ИНСТРУКТОРЫ</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">ЭКИПИРОВКА</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">КОНТАКТЫ</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">НОВОСТИ</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">СЕМИНАРЫ</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">СТАТЬИ</a>
-						</li>
-					</ul>
-				</div>          
+        
+        <?php
+          wp_nav_menu( array(
+            'theme_location'  => 'primary',
+            'depth'	          => 2, // 1 = no dropdowns, 2 = with dropdowns.
+            'container'       => 'div',
+            'container_class' => 'collapse navbar-collapse flex-nowrap',
+            'container_id'    => 'navbarCollapse',
+            'menu_class'      => 'navbar-nav text-center',
+            'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
+            'walker'          => new WP_Bootstrap_Navwalker(),
+          ) );
+        ?>
 
 			</div>
 		</div>
