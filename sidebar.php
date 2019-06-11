@@ -1,7 +1,5 @@
 <?php if (is_active_sidebar('sidebar')) :?>
-  <!-- Sidebar Column -->
-  <div class="col-12 pt-2 pl-md-2 order-md-last col-md-3">
+  <aside class="col-12 pt-2 pl-md-2 order-md-last col-md-3">
     <?php dynamic_sidebar('sidebar'); ?>
-  </div>
-  <!-- Sidebar Column End -->
+  </aside>
 <?php endif; ?>

@@ -27,7 +27,7 @@
       'id' => 'sidebar',
       'before_widget' => '<div class="card mb-2"><div class="card-body p-0">',
       'after_widget' => '</div></div></div>',
-      'before_title' => '<h5 class="card-title p-1 text-light bg-primary">',
+      'before_title' => '<h5 class="card-title p-2 text-light bg-primary">',
       'after_title' => '</h5><div class="card-text">',
     ));
   }

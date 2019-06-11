@@ -1,6 +1,5 @@
-        </div><!-- Content Column End -->
-      </div><!-- Main Row End -->
-    </div><!-- Main Container End -->
+      </div><!-- .row -->
+    </div><!-- .col-12 -->
   </main>
   <footer class="container pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">

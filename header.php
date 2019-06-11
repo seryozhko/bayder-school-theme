@@ -83,14 +83,9 @@
 
 	</header>
 
-  <main role="main">
-
-    <?php get_template_part( 'template-parts/header/hero', 'section' ); ?>
-    <!-- Main Container -->
-    <div class="container px-0">
-     <!-- Main Row -->
-      <div class="row no-gutters">
-
-        <?php get_sidebar(); ?>
-        <!-- Content Column -->
-        <div class="col-12 pt-2 order-md-first <?php echo is_active_sidebar('sidebar') ? 'col-md-9' : ''; ?>">
+  <?php get_template_part( 'template-parts/header/hero', 'section' ); ?>
+  
+  <main role="main" class="container px-0">
+    <div class="row no-gutters">
+      <?php get_sidebar(); ?>
+      <div class="col-12 pt-2 order-md-first <?php echo is_active_sidebar('sidebar') ? 'col-md-9' : ''; ?>">

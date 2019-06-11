@@ -1,8 +1,7 @@
 <?php	get_header(); ?>
-   
-  <?php if(have_posts()) : ?>
+
     <?php while(have_posts()) : the_post(); ?>
-      <div>
+      <article>
         <h2><?php the_title(); ?></h2>
         <p>
           <?php the_time('F j, Y G:i'); ?> автор
@@ -15,13 +14,13 @@
             <?php the_post_thumbnail('medium_large', array('class' => 'w-100 h-auto')); ?>
           </div>
         <?php endif; ?>
-        <?php the_content(); ?>
-        <hr>
-        <?php comments_template(); ?>
-      </div>
+        <?php 
+          the_content();
+          if ( comments_open() || get_comments_number() ) {
+            comments_template();
+          }
+        ?>
+      </article>
     <?php endwhile; ?>
-  <?php else : ?>
-    <p><?php echo 'Нет Статей'?></p>
-  <?php endif; ?>
 
 <?php get_footer();
