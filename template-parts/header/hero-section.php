@@ -2,20 +2,20 @@
   <section class="container text-center px-0">
     <div class="row no-gutters">
       <div class="col-md-9">
-        <img src="src/assets/slide1.jpg" alt="" class="w-100">
+        <img src="<?php bloginfo('template_url'); ?>/assets/slide1.jpg" alt="" class="w-100">
       </div>
 
       <div class="col-md-3 pl-md-2 py-1 py-md-0">
       
         <div class="row no-gutters h-100 align-items-center">
           <div class="col col-md-12">
-            <img src="src/assets/banner1.jpg" alt="" class="w-100">
+            <img src="<?php bloginfo('template_url'); ?>/assets/banner1.jpg" alt="" class="w-100">
           </div>
           <div class="col col-md-12 px-1 px-md-0">
-              <img src="src/assets/banner2.jpg" alt="" class="w-100">
+              <img src="<?php bloginfo('template_url'); ?>/assets/banner2.jpg" alt="" class="w-100">
           </div>
           <div class="col col-md-12">
-              <img src="src/assets/banner3.jpg" alt="" class="w-100">
+              <img src="<?php bloginfo('template_url'); ?>/assets/banner3.jpg" alt="" class="w-100">
           </div>
         </div>
 

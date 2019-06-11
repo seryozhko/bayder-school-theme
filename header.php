@@ -22,7 +22,7 @@
     
 		  <div class="col-auto text-center px-0">
         <a href="/">
-          <img src="src/assets/logo.png" class="logo" alt="">
+          <img src="<?php bloginfo('template_url'); ?>/assets/logo.png" class="logo" alt="">
           <h5 class="d-sm-inline-block align-middle ml-1 mb-0">Школа Байдера</h5>
         </a>
       </div>

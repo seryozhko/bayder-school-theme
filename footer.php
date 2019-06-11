@@ -4,7 +4,7 @@
   <footer class="container pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md text-center">
-        <img class="mb-2" src="src/assets/logo.png" alt="" width="24" height="24">
+        <img class="mb-2" src="<?php bloginfo('template_url'); ?>/assets/logo.png" alt="" width="24" height="24">
         <small class="d-block mb-3 text-muted">2012-<?php echo Date('Y'); ?> © <?php bloginfo('name'); ?></small>
       </div>
     </div>
