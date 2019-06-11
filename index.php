@@ -28,6 +28,34 @@
           </div>
         </div>
         <div class="col-12 col-md-9 pt-2 order-md-first">
+          <div>
+            <?php if(have_posts()) : ?>
+              <?php while(have_posts()) : the_post(); ?>
+                <div>
+                  <h2>
+                    <a href="<?php the_permalink(); ?>">
+                      <?php the_title(); ?>
+                    </a>
+                  </h2>
+                  <p>
+                    <?php the_time('F j, Y G:i'); ?> автор
+                    <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">
+                      <?php the_author(); ?>
+                    </a>
+                  </p>
+                  <?php if(has_post_thumbnail()): ?>
+                    <div>
+                      <?php the_post_thumbnail('medium_large', array('class' => 'w-100 h-auto')); ?>
+                    </div>
+                  <?php endif; ?>
+                  <?php the_excerpt(); ?>
+                </div>
+              <?php endwhile; ?>
+            <?php else : ?>
+              <p><?php echo 'Нет Статей'?></p>
+            <?php endif; ?>
+          </div>
+
           <div class="card">
             <div class="card-body p-0">
               <h5 class="card-title p-1 text-light bg-primary">ВИДЕО О ШКОЛЕ</h5>
