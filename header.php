@@ -15,6 +15,7 @@
 </head>
 
 <body>
+  <?php wp_body_open(); ?>
   <header>
 	
     <div class="container d-flex justify-content-between py-2 px-1">
@@ -40,11 +41,6 @@
               <i class="material-icons align-top md-21">place</i>
             </button><span class="ml-1 d-none d-lg-inline-block">ул. Вятская, дом 27, корпус 12</span>
           </a>
-          <!-- <a href="" class="px-sm-2">
-            <button class="btn btn-light btn-sm p-1" type="button">
-              <i class="material-icons align-top md-21">search</i>
-            </button>
-          </a>-->
           <a class="px-sm-2">
             <button class="btn btn-primary btn-sm p-1" type="button">
               <span class="d-none d-sm-inline">Войти</span> <i class="material-icons align-top md-21">account_circle</i>
@@ -88,31 +84,13 @@
 	</header>
 
   <main role="main">
-    <section class="container text-center px-0">
+
+    <?php get_template_part( 'template-parts/header/hero', 'section' ); ?>
+    <!-- Main Container -->
+    <div class="container px-0">
+     <!-- Main Row -->
       <div class="row no-gutters">
-        <div class="col-md-9">
-          <img src="src/assets/slide1.jpg" alt="" class="w-100">
-        </div>
 
-        <div class="col-md-3 pl-md-2 py-1 py-md-0">
-        
-          <div class="row no-gutters h-100 align-items-center">
-            <div class="col col-md-12">
-              <img src="src/assets/banner1.jpg" alt="" class="w-100">
-            </div>
-            <div class="col col-md-12 px-1 px-md-0">
-                <img src="src/assets/banner2.jpg" alt="" class="w-100">
-            </div>
-            <div class="col col-md-12">
-                <img src="src/assets/banner3.jpg" alt="" class="w-100">
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="row no-gutters py-md-2">
-        <div class="col text-light bg-dark">
-          <p class="p-2">Айкидо - одно из самых молодых боевых искусств, максимально отвечающее потребностям сегодняшнего дня. Для изучения этого боевого искусства не надо какой-либо начальной подготовки. Эта школа доступна к практике в любом возрасте. Как правило, айкидо практикуется на протяжении всей жизни, что дает возможность поддерживать высокий уровень здоровья и внутреннего комфорта все годы занятий.</p>
-        </div>
-      </div>
-    </section>
+        <?php get_sidebar(); ?>
+        <!-- Content Column -->
+        <div class="col-12 pt-2 order-md-first <?php echo is_active_sidebar('sidebar') ? 'col-md-9' : ''; ?>">

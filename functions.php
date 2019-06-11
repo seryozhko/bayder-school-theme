@@ -20,6 +20,20 @@
 
   add_filter('excerpt_length', 'bs_set_excerpt_length');
 
+  // Widget Locations
+  function bs_init_widgets($id){
+    register_sidebar(array(
+      'name' => 'Панель спарва',
+      'id' => 'sidebar',
+      'before_widget' => '<div class="card mb-2"><div class="card-body p-0">',
+      'after_widget' => '</div></div></div>',
+      'before_title' => '<h5 class="card-title p-1 text-light bg-primary">',
+      'after_title' => '</h5><div class="card-text">',
+    ));
+  }
+
+  add_action('widgets_init', 'bs_init_widgets');
+
   // function bs_post_thumbnail_sizes_attr( $attr, $attachment, $size ) {
   //   if ( 'post-thumbnail' === $size ) {
   //     is_active_sidebar( 'sidebar-1' ) && $attr['sizes'] = '(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 984px) 60vw, (max-width: 1362px) 62vw, 840px';

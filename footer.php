@@ -1,4 +1,8 @@
-<footer class="container pt-4 my-md-5 pt-md-5 border-top">
+        </div><!-- Content Column End -->
+      </div><!-- Main Row End -->
+    </div><!-- Main Container End -->
+  </main>
+  <footer class="container pt-4 my-md-5 pt-md-5 border-top">
     <div class="row">
       <div class="col-12 col-md text-center">
         <img class="mb-2" src="src/assets/logo.png" alt="" width="24" height="24">
