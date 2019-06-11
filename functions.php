@@ -1,11 +1,11 @@
 <?php
-  //Register Nav Walker class_alias
+  // Register Nav Walker class_alias
   require_once('class-wp-bootstrap-navwalker.php');
 
-  //Theme Support
+  // Theme Support
   function bs_theme_setup(){
     add_theme_support('post-thumbnails');
-    //Nav Menus
+    // Nav Menus
     register_nav_menus(array(
       'primary' => 'Главное Меню'
     ));
@@ -13,7 +13,7 @@
 
   add_action('after_setup_theme', 'bs_theme_setup');
 
-  //Excerpt Length control
+  // Excerpt Length control
   function bs_set_excerpt_length(){
     return 50;
   }
