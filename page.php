@@ -2,7 +2,9 @@
 
   <?php while(have_posts()) : the_post(); ?>
     <article>
-      <h2><?php the_title(); ?></h2>
+      <?php if(!is_front_page()) : ?>
+        <h2><?php the_title() ?></h2>
+      <?php endif; ?>
       <?php if(has_post_thumbnail()): ?>
         <div>
           <?php the_post_thumbnail('medium_large', array('class' => 'w-100 h-auto')); ?>

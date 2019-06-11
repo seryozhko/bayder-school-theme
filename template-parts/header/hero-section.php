@@ -1,4 +1,4 @@
-<?php if(is_home()) : ?> 
+<?php if(is_front_page()) : ?> 
   <section class="container text-center px-0">
     <div class="row no-gutters">
       <div class="col-md-9">
