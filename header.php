@@ -16,7 +16,7 @@
 
 <body>
   <?php wp_body_open(); ?>
-  <header>
+  <header class="mb-2">
 	
     <div class="container d-flex justify-content-between py-2 px-1">
     
@@ -32,19 +32,13 @@
 
         <div class="row justify-content-around no-gutters">
           <a href="" class="px-sm-2">
-            <button class="btn btn-primary btn-sm p-1" type="button">
-              <i class="material-icons align-top md-21">phone</i>
-            </button><span class="d-none d-md-inline-block ml-1">+7 (495) 211 66 44</span>
+            <i class="material-icons align-top md-21 btn btn-primary btn-sm p-1">phone</i><span class="d-none d-md-inline-block ml-1">+7 (495) 211 66 44</span>
           </a>
           <a href="" class="px-sm-2">
-            <button class="btn btn-danger btn-sm p-1 text-white" type="button">
-              <i class="material-icons align-top md-21">place</i>
-            </button><span class="ml-1 d-none d-lg-inline-block">ул. Вятская, дом 27, корпус 12</span>
+            <i class="material-icons align-top md-21 btn btn-danger btn-sm p-1 text-white">place</i><span class="ml-1 d-none d-lg-inline-block">ул. Вятская, дом 27, корпус 12</span>
           </a>
-          <a class="px-sm-2">
-            <button class="btn btn-primary btn-sm p-1" type="button">
-              <span class="d-none d-sm-inline">Войти</span> <i class="material-icons align-top md-21">account_circle</i>
-            </button>
+          <a href="/wp-admin" class="px-sm-2">
+            <i class="material-icons align-top md-21 btn btn-primary btn-sm p-1">lock</i><span class="ml-1 d-none d-sm-inline">Войти</span>
           </a>
         </div>
 
