@@ -5,6 +5,7 @@
   // Theme Support
   function bs_theme_setup(){
     add_theme_support('post-thumbnails');
+    // add_theme_support( 'custom-logo' );
     // Nav Menus
     register_nav_menus(array(
       'primary' => 'Главное Меню'
@@ -33,6 +34,9 @@
   }
 
   add_action('widgets_init', 'bs_init_widgets');
+
+  // Customizer File
+  require get_template_directory() . '/includes/customizer.php';
 
   // function bs_post_thumbnail_sizes_attr( $attr, $attachment, $size ) {
   //   if ( 'post-thumbnail' === $size ) {
