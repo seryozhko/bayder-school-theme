@@ -1,6 +1,6 @@
 <?php
   // Register Nav Walker class_alias
-  require_once('class-wp-bootstrap-navwalker.php');
+  require_once( get_template_directory() . '/includes/class-wp-bootstrap-navwalker.php' );
 
   // Theme Support
   function bs_theme_setup(){
