@@ -2,7 +2,7 @@
 
     <?php while(have_posts()) : the_post(); ?>
       <article>
-        <h2><?php the_title(); ?></h2>
+        <h5 class="text-light bg-primary text-uppercase p-2"><?php the_title(); ?></h5>
         <p>
           <?php the_time('F j, Y G:i'); ?> автор
           <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">

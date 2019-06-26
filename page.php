@@ -3,7 +3,7 @@
   <?php while(have_posts()) : the_post(); ?>
     <article>
       <?php if(!is_front_page()) : ?>
-        <h2><?php the_title() ?></h2>
+        <h5 class="text-light bg-primary text-uppercase p-2"><?php the_title() ?></h5>
       <?php endif; ?>
       <?php if(has_post_thumbnail()): ?>
         <div>

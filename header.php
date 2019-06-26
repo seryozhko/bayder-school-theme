@@ -68,9 +68,8 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 
-        <?php get_search_form(); ?>
-        
         <?php
+          get_search_form();
           wp_nav_menu( array(
             'theme_location'  => 'primary',
             'depth'	          => 2, // 1 = no dropdowns, 2 = with dropdowns.

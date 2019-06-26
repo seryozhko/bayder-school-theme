@@ -26,9 +26,9 @@
     register_sidebar(array(
       'name' => 'Панель спарва',
       'id' => 'sidebar',
-      'before_widget' => '<div class="card mb-2"><div class="card-body p-0">',
+      'before_widget' => '<div class="card mb-2 border-0"><div class="card-body p-0">',
       'after_widget' => '</div></div></div>',
-      'before_title' => '<h5 class="card-title p-2 text-light bg-primary">',
+      'before_title' => '<h5 class="card-title p-2 text-light bg-primary text-uppercase">',
       'after_title' => '</h5><div class="card-text">',
     ));
     register_sidebar(array(
@@ -43,6 +43,15 @@
 
   // Customizer File
   require get_template_directory() . '/includes/customizer.php';
+
+  // add external link to Tools area
+  function blocks_admin_menu() {
+    global $submenu;
+    $url = '/wp-admin/edit.php?post_type=wp_block';
+    $submenu['tools.php'][] = array('Мои блоки', 'manage_options', $url);
+  }
+  add_action('admin_menu', 'blocks_admin_menu');
+
 
   // function bs_post_thumbnail_sizes_attr( $attr, $attachment, $size ) {
   //   if ( 'post-thumbnail' === $size ) {
