@@ -95,7 +95,9 @@
 
 	</header>
 
-  <?php get_template_part( 'template-parts/header/hero', 'section' ); ?>
+  <?php //get_template_part( 'template-parts/header/hero', 'section' ); 
+    get_sidebar('hero');
+  ?>
   
   <main role="main" class="container px-0">
     <div class="row no-gutters">

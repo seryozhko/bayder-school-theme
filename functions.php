@@ -31,6 +31,12 @@
       'before_title' => '<h5 class="card-title p-2 text-light bg-primary">',
       'after_title' => '</h5><div class="card-text">',
     ));
+    register_sidebar(array(
+      'name' => 'Верхняя панель на главной',
+      'id' => 'hero-section',
+      'before_widget' => '<div class="row no-gutters">',
+      'after_widget' => '</div>',
+    ));
   }
 
   add_action('widgets_init', 'bs_init_widgets');
