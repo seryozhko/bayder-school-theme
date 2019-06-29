@@ -1,6 +1,8 @@
 <?php
+  add_filter('xmlrpc_enabled', '__return_false');
   // Register Nav Walker class_alias
   require_once( get_template_directory() . '/includes/class-wp-bootstrap-navwalker.php' );
+  require_once( get_template_directory() . '/includes/class-custom-post-type.php' );
 
   // Theme Support
   function bs_theme_setup(){
@@ -11,14 +13,12 @@
       'primary' => 'Главное Меню'
     ));
   }
-
   add_action('after_setup_theme', 'bs_theme_setup');
 
   // Excerpt Length control
   function bs_set_excerpt_length(){
     return 50;
   }
-
   add_filter('excerpt_length', 'bs_set_excerpt_length');
 
   // Widget Locations
@@ -38,20 +38,33 @@
       'after_widget' => '</div>',
     ));
   }
-
   add_action('widgets_init', 'bs_init_widgets');
 
-  // Customizer File
   require get_template_directory() . '/includes/customizer.php';
+  require get_template_directory() . '/includes/venues-post-type.php';
 
   // add external link to Tools area
-  function blocks_admin_menu() {
-    global $submenu;
-    $url = '/wp-admin/edit.php?post_type=wp_block';
-    $submenu['tools.php'][] = array('Мои блоки', 'manage_options', $url);
-  }
-  add_action('admin_menu', 'blocks_admin_menu');
+  // function blocks_admin_menu() {
+  //   global $submenu;
+  //   $url = '/wp-admin/edit.php?post_type=wp_block';
+  //   $submenu['tools.php'][] = array('Мои блоки', 'manage_options', $url);
+  // }
+  // add_action('admin_menu', 'blocks_admin_menu');
 
+  // function jr3_enqueue_gutenberg() {
+  //   wp_register_style( 'bootstrap-gutenberg', get_stylesheet_directory_uri() . '/style.css' );
+  //   wp_enqueue_style( 'bootstrap-gutenberg' );
+
+  //   wp_register_script( 'bootstrapjs-gutenberg','https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', array(), false, true );
+  //   wp_enqueue_script( 'bootstrapjs-gutenberg' );
+  // }
+  // add_action( 'enqueue_block_editor_assets', 'jr3_enqueue_gutenberg' );
+  
+  // $args = array(
+  //   'menu_icon' => 'dashicons-admin-users',
+  //   'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'custom-fields', 'page-attributes')
+  // );
+  // $instructor = new Custom_Post_Type( 'Инструктор', 'Инструкторы', 'instructor', 'm', $args );
 
   // function bs_post_thumbnail_sizes_attr( $attr, $attachment, $size ) {
   //   if ( 'post-thumbnail' === $size ) {
