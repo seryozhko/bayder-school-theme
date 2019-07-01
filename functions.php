@@ -39,6 +39,10 @@
     ));
   }
   add_action('widgets_init', 'bs_init_widgets');
+  
+  add_filter( 'block_categories', function( $categories, $post ) {
+    return array_merge($categories, [[ 'slug'  => 'bayder-school', 'title' => 'Школа Байдера' ]]);
+  }, 10, 2 );
 
   require get_template_directory() . '/includes/customizer.php';
   require get_template_directory() . '/includes/venues-post-type.php';
@@ -51,14 +55,14 @@
   // }
   // add_action('admin_menu', 'blocks_admin_menu');
 
-  // function jr3_enqueue_gutenberg() {
-  //   wp_register_style( 'bootstrap-gutenberg', get_stylesheet_directory_uri() . '/style.css' );
-  //   wp_enqueue_style( 'bootstrap-gutenberg' );
+  function jr3_enqueue_gutenberg() {
+    wp_register_style( 'bootstrap-gutenberg', get_stylesheet_directory_uri() . '/style.css' );
+    wp_enqueue_style( 'bootstrap-gutenberg' );
 
-  //   wp_register_script( 'bootstrapjs-gutenberg','https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', array(), false, true );
-  //   wp_enqueue_script( 'bootstrapjs-gutenberg' );
-  // }
-  // add_action( 'enqueue_block_editor_assets', 'jr3_enqueue_gutenberg' );
+    wp_register_script( 'bootstrapjs-gutenberg','https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', array(), false, true );
+    wp_enqueue_script( 'bootstrapjs-gutenberg' );
+  }
+  add_action( 'enqueue_block_editor_assets', 'jr3_enqueue_gutenberg' );
   
   // $args = array(
   //   'menu_icon' => 'dashicons-admin-users',
