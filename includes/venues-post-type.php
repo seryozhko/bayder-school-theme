@@ -3,11 +3,23 @@
   use PostTypes\Taxonomy;
   use PostTypes\TaxonomyImage;
 
+  define('CAPABILITY', 'update_core');
+
   $args = array(
     'menu_icon' => 'dashicons-location',
     'has_archive' => 'zaly_i_instructory',
-    'rewrite' => array( 'slug' => 'zaly_i_instructory/zal', 'with_front' => true ),
-    'supports' => array( 'title', 'editor', 'custom-fields', 'page-attributes')
+    'rewrite' => ['slug' => 'zaly_i_instructory/zal', 'with_front' => true],
+    'supports' => ['title', 'editor', 'custom-fields', 'page-attributes'],
+    'capabilities' => [
+      'edit_post'          => CAPABILITY,
+      'read_post'          => CAPABILITY,
+      'delete_post'        => CAPABILITY,
+      'edit_posts'         => CAPABILITY,
+      'edit_others_posts'  => CAPABILITY,
+      'delete_posts'       => CAPABILITY,
+      'publish_posts'      => CAPABILITY,
+      'read_private_posts' => CAPABILITY,
+    ],
   );
   $venues = new PostType('Зал', 'Залы', 'venues', 'm', $args);
 
@@ -19,5 +31,3 @@
   $location->register();
     
   $locationImage = new TaxonomyImage('locations', 'location-image', 'Изображение региона');
-
-  flush_rewrite_rules();

@@ -7,13 +7,28 @@
   // Theme Support
   function bs_theme_setup(){
     add_theme_support('post-thumbnails');
+    add_theme_support('align-wide');
+    add_theme_support('editor-styles');
+    add_theme_support('responsive-embeds');
+    // add_theme_support('wp-block-styles');
     // add_theme_support( 'custom-logo' );
-    // Nav Menus
+    add_editor_style( 'css/style-editor.css' );
+    add_image_size( 'profileThumb', 160, 236, true );
+
     register_nav_menus(array(
       'primary' => 'Главное Меню'
     ));
   }
   add_action('after_setup_theme', 'bs_theme_setup');
+
+  // Make custom sizes selectable from WordPress admin.
+  function custom_image_sizes( $size_names ) {
+    $new_sizes = array(
+      'profileThumb' => 'Фото для профиля',
+    );
+    return array_merge( $size_names, $new_sizes );
+  }
+  add_filter( 'image_size_names_choose', 'custom_image_sizes' );
 
   // Excerpt Length control
   function bs_set_excerpt_length(){
@@ -39,21 +54,46 @@
     ));
   }
   add_action('widgets_init', 'bs_init_widgets');
-  
-  add_filter( 'block_categories', function( $categories, $post ) {
-    return array_merge($categories, [[ 'slug'  => 'bayder-school', 'title' => 'Школа Байдера' ]]);
-  }, 10, 2 );
 
   require get_template_directory() . '/includes/customizer.php';
   require get_template_directory() . '/includes/venues-post-type.php';
+  require get_template_directory() . '/includes/instructors-post-type.php';
+  flush_rewrite_rules();
 
-  // add external link to Tools area
-  // function blocks_admin_menu() {
-  //   global $submenu;
-  //   $url = '/wp-admin/edit.php?post_type=wp_block';
-  //   $submenu['tools.php'][] = array('Мои блоки', 'manage_options', $url);
-  // }
-  // add_action('admin_menu', 'blocks_admin_menu');
+  function my_user_field($user){
+    echo "<a href class='button button-primary'>Редактировать публичный профиль</a>";
+  }
+
+  add_action( 'show_user_profile', 'my_user_field' );
+  add_action( 'edit_user_profile', 'my_user_field' );
+
+  function myplugin_registration_save( $userId ) {
+    $user = get_userdata( $userId );
+
+    if(!$userId > 0 || $user->roles[0] !== 'author') return;
+
+    $post = array(
+      'post_title' => $user->last_name . " ". $user->first_name,
+      'post_status' => 'publish',
+      'post_author' => $userId,
+      'post_type' => 'instructors',
+      'post_name' => $user->user_nicename,
+    );
+
+    $postId = wp_insert_post( $post );
+
+    if($postId) {
+      update_user_meta($userId, 'profile_page_id', $postId);
+    }
+  }
+  add_action( 'user_register', 'myplugin_registration_save', 10, 1 );
+
+  function my_delete_user( $userId ) {
+    $postId = get_user_meta($userId,  'profile_page_id', true );
+    if ( $postId !== '' )
+      wp_delete_post( $postId, true );
+  }
+  add_action( 'delete_user', 'my_delete_user' );
 
   function jr3_enqueue_gutenberg() {
     wp_register_style( 'bootstrap-gutenberg', get_stylesheet_directory_uri() . '/style.css' );
@@ -62,8 +102,16 @@
     wp_register_script( 'bootstrapjs-gutenberg','https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', array(), false, true );
     wp_enqueue_script( 'bootstrapjs-gutenberg' );
   }
-  add_action( 'enqueue_block_editor_assets', 'jr3_enqueue_gutenberg' );
-  
+  // add_action( 'enqueue_block_editor_assets', 'jr3_enqueue_gutenberg' );
+ 
+  // add external link to Tools area
+  // function blocks_admin_menu() {
+  //   global $submenu;
+  //   $url = '/wp-admin/edit.php?post_type=wp_block';
+  //   $submenu['tools.php'][] = array('Мои блоки', 'manage_options', $url);
+  // }
+  // add_action('admin_menu', 'blocks_admin_menu');
+
   // $args = array(
   //   'menu_icon' => 'dashicons-admin-users',
   //   'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'custom-fields', 'page-attributes')
