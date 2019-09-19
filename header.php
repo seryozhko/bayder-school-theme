@@ -11,7 +11,6 @@
 	</title>
   <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>">
 	<?php wp_head(); ?>
-  <script src="https://api-maps.yandex.ru/2.1/?apikey=2158949e-c08e-4227-89b0-62d6ac0d2a69&lang=<?php bloginfo('language'); ?>" type="text/javascript"></script>
 </head>
 
 <body>

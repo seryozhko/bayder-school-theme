@@ -20,8 +20,16 @@
       'publish_posts'      => CAPABILITY,
       'read_private_posts' => CAPABILITY,
     ],
+    'template' => [
+      ['bayder-school/map', ['anchor' => 'map'] ],
+    ],
+    // 'template_lock' => 'all',
   );
   $venues = new PostType('Зал', 'Залы', 'venues', 'm', $args);
+
+  $venues->add_meta('point');
+  $venues->add_meta('venueAddress');
+  $venues->add_meta('zoom', ['type' => 'number']);
 
   $args = array(
     'rewrite' => array( 'slug' => 'zaly_i_instructory'),
@@ -29,5 +37,9 @@
   $location = new Taxonomy('Регион', 'Регионы', 'locations', 'm', $args);
   $location->posttype('venues');
   $location->register();
-    
+
   $locationImage = new TaxonomyImage('locations', 'location-image', 'Изображение региона');
+
+  add_filter( 'template_include', function($template) {
+    return is_tax('locations') ? get_query_template( 'archive-venues' ) : $template;
+  });

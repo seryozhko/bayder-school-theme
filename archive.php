@@ -1,5 +1,11 @@
 <?php	get_header(); ?>
-  
+  archive
+  <h5 class="text-light bg-primary text-uppercase p-2 text-center">
+    <?php 
+      // echo post_type_archive_title( '', false );
+      the_archive_title();
+    ?>
+  </h5>
   <?php if(have_posts()) : ?>
     <?php while(have_posts()) : the_post(); ?>
       <article>

@@ -22,6 +22,10 @@
       'publish_posts'      => CAPABILITY,
       'read_private_posts' => CAPABILITY
     ],
+    'template' => [
+      ['core/paragraph', [ 'placeholder' => 'Bio' ] ],
+    ],
   ];
   $labels = ['add_new' => "Добавить нового"];
   $instructors = new PostType('Инструктор', 'Инструкторы', 'instructors', 'm', $args, $labels);
+  $instructors->add_meta('venueIds');

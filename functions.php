@@ -95,13 +95,21 @@
   }
   add_action( 'delete_user', 'my_delete_user' );
 
-  function jr3_enqueue_gutenberg() {
-    wp_register_style( 'bootstrap-gutenberg', get_stylesheet_directory_uri() . '/style.css' );
-    wp_enqueue_style( 'bootstrap-gutenberg' );
-
-    wp_register_script( 'bootstrapjs-gutenberg','https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', array(), false, true );
-    wp_enqueue_script( 'bootstrapjs-gutenberg' );
+  add_filter( 'author_link', 'link_to_profile', 10, 3 );
+  
+  function link_to_profile($link, $author_id, $author_nicename) {
+    $profile_id = get_user_meta( $author_id, 'profile_page_id', true );
+    $link = $profile_id ? get_post_permalink( $profile_id ) : $link;
+    return $link;
   }
+
+  // function jr3_enqueue_gutenberg() {
+  //   wp_register_style( 'bootstrap-gutenberg', get_stylesheet_directory_uri() . '/style.css' );
+  //   wp_enqueue_style( 'bootstrap-gutenberg' );
+
+  //   wp_register_script( 'bootstrapjs-gutenberg','https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', array(), false, true );
+  //   wp_enqueue_script( 'bootstrapjs-gutenberg' );
+  // }
   // add_action( 'enqueue_block_editor_assets', 'jr3_enqueue_gutenberg' );
  
   // add external link to Tools area

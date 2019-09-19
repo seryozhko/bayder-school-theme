@@ -382,9 +382,23 @@ class PostType
     }
 
     /* Attaches meta boxes to the post type */
-    public function add_meta_box()
+    public function add_meta($meta_name, $meta_args = [])
     {
+      if( !empty($meta_name) ){
+        $args = array_merge(
+          [
+            'show_in_rest' => true,
+            'single' => true,
+            'type' => 'string'
+          ], 
+          $meta_args
+        );
+        $post_type = $this->post_type_slug;
 
+        add_action( 'init', function() use( $post_type, $meta_name, $args ){
+          register_post_meta($post_type, $meta_name, $args);
+        });
+      }
     }
 
     /* Listens for when the post type being saved */
