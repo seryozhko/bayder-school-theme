@@ -10,20 +10,20 @@
     'has_archive' => 'zaly_i_instructory',
     'rewrite' => ['slug' => 'zaly_i_instructory/zal', 'with_front' => true],
     'supports' => ['title', 'editor', 'custom-fields', 'page-attributes'],
-    'capabilities' => [
-      'edit_post'          => CAPABILITY,
-      'read_post'          => CAPABILITY,
-      'delete_post'        => CAPABILITY,
-      'edit_posts'         => CAPABILITY,
-      'edit_others_posts'  => CAPABILITY,
-      'delete_posts'       => CAPABILITY,
-      'publish_posts'      => CAPABILITY,
-      'read_private_posts' => CAPABILITY,
-    ],
+    // 'capabilities' => [
+    //   'edit_post'          => 'edit_posts',
+    //   'read_post'          => 'edit_posts',
+    //   'delete_post'        => 'edit_posts',
+    //   'edit_posts'         => 'edit_posts',
+    //   'edit_others_posts'  => 'edit_posts',
+    //   'delete_posts'       => 'edit_posts',
+    //   'publish_posts'      => 'edit_posts',
+    //   'read_private_posts' => 'edit_posts',
+    // ],
     'template' => [
       ['bayder-school/map', ['anchor' => 'map'] ],
     ],
-    // 'template_lock' => 'all',
+    'template_lock' => 'all',
   );
   $venues = new PostType('Зал', 'Залы', 'venues', 'm', $args);
 
@@ -33,6 +33,12 @@
 
   $args = array(
     'rewrite' => array( 'slug' => 'zaly_i_instructory'),
+    'capabilities' => [
+      'manage_terms' => 'edit_posts',
+      'assign_terms' => 'edit_posts',
+      'edit_terms' => 'edit_posts',
+      'delete_terms' => 'edit_posts',
+    ],
   );
   $location = new Taxonomy('Регион', 'Регионы', 'locations', 'm', $args);
   $location->posttype('venues');

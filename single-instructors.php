@@ -1,8 +1,6 @@
 <?php	
 get_header();
 
-the_breadcrumb();
-
 while(have_posts()) : the_post(); ?>
   <article>
     <h5 class="text-light bg-primary text-uppercase p-2"><?php the_title(); ?></h5>
@@ -43,4 +41,5 @@ if($loop->have_posts()) : ?>
   <p><?php echo 'Нет Статей'?></p>
 <?php endif;
 
+wp_reset_postdata();
 get_footer();

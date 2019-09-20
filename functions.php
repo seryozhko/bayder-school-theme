@@ -60,13 +60,6 @@
   require get_template_directory() . '/includes/instructors-post-type.php';
   flush_rewrite_rules();
 
-  function my_user_field($user){
-    echo "<a href class='button button-primary'>Редактировать публичный профиль</a>";
-  }
-
-  add_action( 'show_user_profile', 'my_user_field' );
-  add_action( 'edit_user_profile', 'my_user_field' );
-
   function myplugin_registration_save( $userId ) {
     $user = get_userdata( $userId );
 
@@ -74,6 +67,17 @@
 
     $post = array(
       'post_title' => $user->last_name . " ". $user->first_name,
+      'post_content' => '<!-- wp:bayder-school/bio -->
+        <div class="wp-block-bayder-school-bio media flex-wrap"><img src="http://placehold.it/160x236" class="align-self-center mx-auto mx-sm-0"/><div class="media-body flex-wrap ml-4"><div class="font-weight-bold text-nowrap"></div><div></div></div></div>
+        <!-- /wp:bayder-school/bio -->
+        
+        <!-- wp:paragraph {"placeholder":"Биография"} -->
+        <p></p>
+        <!-- /wp:paragraph -->
+        
+        <!-- wp:bayder-school/schedule {"venues":[]} -->
+        <div class="card my-2"><div class="card-header"><nav><div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist"></div></nav></div><div class="card-body"><div class="tab-content" id="nav-tabContent"></div></div></div>
+        <!-- /wp:bayder-school/schedule -->',
       'post_status' => 'publish',
       'post_author' => $userId,
       'post_type' => 'instructors',
@@ -94,56 +98,64 @@
       wp_delete_post( $postId, true );
   }
   add_action( 'delete_user', 'my_delete_user' );
-
-  add_filter( 'author_link', 'link_to_profile', 10, 3 );
   
   function link_to_profile($link, $author_id, $author_nicename) {
     $profile_id = get_user_meta( $author_id, 'profile_page_id', true );
     $link = $profile_id ? get_post_permalink( $profile_id ) : $link;
     return $link;
   }
+  add_filter( 'author_link', 'link_to_profile', 10, 3 );
 
-  // function jr3_enqueue_gutenberg() {
-  //   wp_register_style( 'bootstrap-gutenberg', get_stylesheet_directory_uri() . '/style.css' );
-  //   wp_enqueue_style( 'bootstrap-gutenberg' );
+  function my_user_field($user){
+    $profile_id = get_user_meta( $user->ID, 'profile_page_id', true );
+    if( $profile_id ){
+      $post_link = get_edit_post_link( $profile_id );
+      // var_dump($post_link);
+      echo "<a href='{$post_link}' class='button button-primary'>Редактировать публичный профиль</a>";
+    }
+  }
+  add_action( 'show_user_profile', 'my_user_field' );
+  add_action( 'edit_user_profile', 'my_user_field' );
 
-  //   wp_register_script( 'bootstrapjs-gutenberg','https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js', array(), false, true );
-  //   wp_enqueue_script( 'bootstrapjs-gutenberg' );
-  // }
-  // add_action( 'enqueue_block_editor_assets', 'jr3_enqueue_gutenberg' );
+  function hide_profile_fields() {
+    $current_screen = get_current_screen();
+    if($current_screen->id === "profile" && !in_array('administrator', wp_get_current_user()->roles)){
+
+      // $data = get_userdata( get_current_user_id() );
+      // if ( is_object( $data) ) {
+      //     $current_user_caps = $data->allcaps;
+      //     echo '<pre>' . print_r( $current_user_caps, true ) . '</pre>';
+      // }
+
+      function my_custom_admin_footer(){
+        echo "<script>
+          function hideBlock(selector, parentTag) {
+            var parent = $(selector).closest(parentTag);
+            parent.hide();
+            parent.prev().hide();
+          }
+          hideBlock('.user-admin-color-wrap', 'table');
+          hideBlock('.user-description-wrap', 'table');
+          hideBlock('#url', 'td');
+        </script>";
+      }
+      add_action( 'admin_footer', 'my_custom_admin_footer' );
+
+    }    
+  }
+  add_action( 'current_screen', 'hide_profile_fields' );
+
+  function my_remove_menu_pages() {
  
-  // add external link to Tools area
-  // function blocks_admin_menu() {
-  //   global $submenu;
-  //   $url = '/wp-admin/edit.php?post_type=wp_block';
-  //   $submenu['tools.php'][] = array('Мои блоки', 'manage_options', $url);
-  // }
-  // add_action('admin_menu', 'blocks_admin_menu');
-
-  // $args = array(
-  //   'menu_icon' => 'dashicons-admin-users',
-  //   'supports' => array( 'title', 'editor', 'thumbnail', 'author', 'custom-fields', 'page-attributes')
-  // );
-  // $instructor = new Custom_Post_Type( 'Инструктор', 'Инструкторы', 'instructor', 'm', $args );
-
-  // function bs_post_thumbnail_sizes_attr( $attr, $attachment, $size ) {
-  //   if ( 'post-thumbnail' === $size ) {
-  //     is_active_sidebar( 'sidebar-1' ) && $attr['sizes'] = '(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 984px) 60vw, (max-width: 1362px) 62vw, 840px';
-  //     ! is_active_sidebar( 'sidebar-1' ) && $attr['sizes'] = '(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 1362px) 88vw, 1200px';
-  //   }
-  //   return $attr;
-  // }
-  // add_filter( 'wp_get_attachment_image_attributes', 'bs_post_thumbnail_sizes_attr', 10 , 3 );
-  
-  // function bs_content_image_sizes_attr( $sizes, $size ) {
-  //   $width = $size[0];
-  //   840 <= $width && $sizes = '(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 1362px) 62vw, 840px';
-  //   if ( 'page' === get_post_type() ) {
-  //     840 > $width && $sizes = '(max-width: ' . $width . 'px) 85vw, ' . $width . 'px';
-  //   } else {
-  //     840 > $width && 600 <= $width && $sizes = '(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 984px) 61vw, (max-width: 1362px) 45vw, 600px';
-  //     600 > $width && $sizes = '(max-width: ' . $width . 'px) 85vw, ' . $width . 'px';
-  //   }
-  //   return $sizes;
-  // }
-  // add_filter( 'wp_calculate_image_sizes', 'bs_content_image_sizes_attr', 10 , 2 );
+    global $user_ID;
+     
+    if ( current_user_can( 'author' ) ) {
+      remove_menu_page( 'edit.php?post_type=instructors' );
+      remove_menu_page( 'edit.php?post_type=venues' );
+      remove_menu_page('upload.php');
+      remove_menu_page('edit-comments.php');
+      remove_menu_page('tools.php');
+      remove_menu_page('gutenberg');
+    }
+  }
+  add_action( 'admin_init', 'my_remove_menu_pages' );
