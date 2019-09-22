@@ -10,16 +10,28 @@
     $blocks = parse_blocks( get_the_content() );
     foreach ( $blocks as $block ) {
       if ( 'bayder-school/map' === $block['blockName'] ) {
-        $points[] = $block["attrs"]["point"];
+        $points[] = [
+          'baloonContent' => $block["attrs"]["baloonContent"],
+          'location' => $block["attrs"]["point"],
+          'title' => get_the_title(),
+          'permalink' => get_the_permalink(),
+        ];
         break;
       }
-    }
+    };
   endwhile;
 endif;
 
 if($points): ?>
-  <div class="ymap-block" point="<?php echo implode(",", $points); ?>" center="[55.75, 37.57]" zoom="16">
-    <?php get_template_part( 'template-parts/venues/map', 'submenu' ); ?>
+  <div class="ymap-block" center="[55.75, 37.57]" zoom="16">
+    <?php get_template_part( 'template-parts/venues/map', 'submenu' );
+    foreach($points as $point) :?>
+
+      <div class="point d-none" title="<?php echo $point['title']; ?>" link="<?php echo $point['permalink']; ?>" location="<?php echo $point['location']; ?>">
+        <?php echo $point['baloonContent']; ?>
+      </div>
+
+    <?php endforeach; ?>
   </div>
 <?php endif;
 

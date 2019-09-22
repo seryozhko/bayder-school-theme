@@ -1,16 +1,14 @@
 ymaps && ymaps.ready(() => {
   [...document.getElementsByClassName('ymap-block')].forEach(el => {
-    const points = el.getAttribute('point');
-    const balloon = el.getElementsByClassName('baloon')[0];
+    const points = el.getElementsByClassName('point');
     const submenu = el.getElementsByClassName('list-group');
+
+    if(!points) return;
+    el.style.height = '350px';
 
     if(submenu.length){
       submenu[0].classList.remove('d-none');
     }
-
-
-    if(!points) return;
-    el.style.height = '350px';
 
     const state = {
       center: JSON.parse(el.getAttribute('center')),
@@ -19,16 +17,13 @@ ymaps && ymaps.ready(() => {
     }
 
     let collection = new ymaps.GeoObjectCollection();
-    // let map = new ymaps.Map(el, state, {suppressMapOpenBlock: true});
     let map = new ymaps.Map(el, state);
 
-
-    const locations = JSON.parse(`[${points}]`);
-    locations.forEach(location => collection.add(new ymaps.Placemark(location,
+    [...points].forEach(point => collection.add(new ymaps.Placemark(JSON.parse(point.getAttribute('location')),
       {
-        balloonContentHeader: balloon ? balloon.getAttribute('title') : '',
-        balloonContentBody: "Содержимое <em>балуна</em> метки",
-        balloonContentFooter: "<a href='#'>Подвал</a>",
+        balloonContentHeader: point.getAttribute('title'),
+        balloonContentBody: point.innerHTML,
+        balloonContentFooter: `<a href='${point.getAttribute('link')}'>На страницу зала</a>`,
       },
       {
         iconLayout: 'default#image',
@@ -36,9 +31,10 @@ ymaps && ymaps.ready(() => {
         iconImageSize: [60, 60],
         iconImageOffset: [-30, -60]
       })));
-    map.geoObjects.add(collection);
 
-    locations.length > 1 ? map.setBounds( collection.getBounds() ) : map.setCenter(locations[0]);
+      map.geoObjects.add(collection);
+
+    points.length > 1 ? map.setBounds( collection.getBounds() ) : map.setCenter(JSON.parse(points[0].getAttribute('location')));
   });
 
 });
