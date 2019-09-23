@@ -3,43 +3,28 @@
   use PostTypes\Taxonomy;
   use PostTypes\TaxonomyImage;
 
-  define('CAPABILITY', 'update_core');
-
-  $args = array(
+  $args = [
     'menu_icon' => 'dashicons-location',
     'has_archive' => 'zaly_i_instructory',
     'rewrite' => ['slug' => 'zaly_i_instructory/zal', 'with_front' => true],
     'supports' => ['title', 'editor', 'custom-fields', 'page-attributes'],
-    // 'capabilities' => [
-    //   'edit_post'          => 'edit_posts',
-    //   'read_post'          => 'edit_posts',
-    //   'delete_post'        => 'edit_posts',
-    //   'edit_posts'         => 'edit_posts',
-    //   'edit_others_posts'  => 'edit_posts',
-    //   'delete_posts'       => 'edit_posts',
-    //   'publish_posts'      => 'edit_posts',
-    //   'read_private_posts' => 'edit_posts',
-    // ],
+    'capability_type' => 'venue',
+    'map_meta_cap' => true,
     'template' => [
       ['bayder-school/map', ['anchor' => 'map'] ],
     ],
     'template_lock' => 'all',
-  );
+  ];
   $venues = new PostType('Зал', 'Залы', 'venues', 'm', $args);
 
   $venues->add_meta('point');
   $venues->add_meta('venueAddress');
+  $venues->add_meta('baloonContent');
   $venues->add_meta('zoom', ['type' => 'number']);
 
-  $args = array(
-    'rewrite' => array( 'slug' => 'zaly_i_instructory'),
-    'capabilities' => [
-      'manage_terms' => 'edit_posts',
-      'assign_terms' => 'edit_posts',
-      'edit_terms' => 'edit_posts',
-      'delete_terms' => 'edit_posts',
-    ],
-  );
+  $args = [
+    'rewrite' => [ 'slug' => 'zaly_i_instructory' ],
+  ];
   $location = new Taxonomy('Регион', 'Регионы', 'locations', 'm', $args);
   $location->posttype('venues');
   $location->register();

@@ -121,12 +121,6 @@
     $current_screen = get_current_screen();
     if($current_screen->id === "profile" && !in_array('administrator', wp_get_current_user()->roles)){
 
-      // $data = get_userdata( get_current_user_id() );
-      // if ( is_object( $data) ) {
-      //     $current_user_caps = $data->allcaps;
-      //     echo '<pre>' . print_r( $current_user_caps, true ) . '</pre>';
-      // }
-
       function my_custom_admin_footer(){
         echo "<script>
           function hideBlock(selector, parentTag) {
@@ -146,10 +140,8 @@
   add_action( 'current_screen', 'hide_profile_fields' );
 
   function my_remove_menu_pages() {
- 
     global $user_ID;
-     
-    if ( current_user_can( 'author' ) ) {
+    if ( current_user_can( 'instructor' ) ) {
       remove_menu_page( 'edit.php?post_type=instructors' );
       remove_menu_page( 'edit.php?post_type=venues' );
       remove_menu_page('upload.php');
