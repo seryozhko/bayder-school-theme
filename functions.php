@@ -63,7 +63,7 @@
   function myplugin_registration_save( $userId ) {
     $user = get_userdata( $userId );
 
-    if(!$userId > 0 || $user->roles[0] !== 'author') return;
+    if(!$userId > 0 || $user->roles[0] !== 'instructor') return;
 
     $post = array(
       'post_title' => $user->last_name . " ". $user->first_name,
@@ -75,9 +75,7 @@
         <p></p>
         <!-- /wp:paragraph -->
         
-        <!-- wp:bayder-school/schedule {"venues":[]} -->
-        <div class="card my-2"><div class="card-header"><nav><div class="nav nav-tabs card-header-tabs" id="nav-tab" role="tablist"></div></nav></div><div class="card-body"><div class="tab-content" id="nav-tabContent"></div></div></div>
-        <!-- /wp:bayder-school/schedule -->',
+        <!-- wp:bayder-school/schedule /-->',
       'post_status' => 'publish',
       'post_author' => $userId,
       'post_type' => 'instructors',
@@ -151,3 +149,7 @@
     }
   }
   add_action( 'admin_init', 'my_remove_menu_pages' );
+
+  add_filter('get_the_archive_title', function ($title) {
+    return preg_replace('/^.*?: (.*?)/s', '$1', $title);
+  });

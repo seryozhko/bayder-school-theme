@@ -1,7 +1,13 @@
 <?php get_header(); ?>
 
 <h5 class="text-light bg-primary text-uppercase p-2 text-center">
-  <?php the_archive_title();?>
+  <?php
+    $description = term_description();
+    if($description)
+      echo preg_replace("#^<p>(.*?)</p>#ms", '$1', $description);      
+    else
+      the_archive_title();
+  ?>
 </h5>
 
 <?php if(have_posts()) :
@@ -28,7 +34,7 @@ if($points): ?>
     foreach($points as $point) :?>
 
       <div class="point d-none" title="<?php echo $point['title']; ?>" link="<?php echo $point['permalink']; ?>" location="<?php echo $point['location']; ?>">
-        <?php echo $point['baloonContent']; ?>
+        <div class='text-center'><?php echo $point['baloonContent']; ?></div>
       </div>
 
     <?php endforeach; ?>

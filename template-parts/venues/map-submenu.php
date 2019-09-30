@@ -6,7 +6,7 @@ $terms = get_terms( [
 
 if(count($terms)) :?>
 
-  <div class="list-group p-1 d-none" style="position:absolute; z-index:99">
+  <div class="list-group p-1 d-none" style="position:absolute; z-index:99; overflow:auto">
     <?php 
     foreach($terms as $term) :
       $term_link = esc_url( get_term_link( $term ) );

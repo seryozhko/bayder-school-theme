@@ -32,7 +32,7 @@ if($points): ?>
     foreach($points as $point) :?>
 
       <div class="point d-none" title="<?php echo $point['title']; ?>" link="<?php echo $point['permalink']; ?>" location="<?php echo $point['location']; ?>">
-        <?php echo $point['baloonContent']; ?>
+        <div class='text-center'><?php echo $point['baloonContent']; ?></div>
       </div>
 
     <?php endforeach; ?>

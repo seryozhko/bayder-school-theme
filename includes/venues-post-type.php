@@ -15,7 +15,7 @@
     ],
     'template_lock' => 'all',
   ];
-  $venues = new PostType('Зал', 'Залы', 'venues', 'm', $args);
+  $venues = new PostType('Зал', 'Залы', 'venues', 'm', $args, ['name' => 'Залы Федерации']);
 
   $venues->add_meta('point');
   $venues->add_meta('venueAddress');
